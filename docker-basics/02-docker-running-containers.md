@@ -85,3 +85,43 @@ $ docker run -p 8080:8080 -v /opt/jenkis_data:/var/jenkins_home jenkins/jenkins
 The `-v` (`--volume`) flag takes two parameters:
 - source: the external volume (`/data/jenkins_data`)
 - target: the mount location inside the container (`/var/jenkins_home`)
+
+
+### Environmen variables
+
+ENV variables store values used by the conatiner (secrets, API keys, URLs). They persist inside the image and the containers created from that template. Users can override ENV values in the command line or provide new values in an ENV file.
+
+```bash
+$ docker run -e "APP_COLOR=pink" color-app
+```
+
+To view ENV variables available for a container, use the `docker inspect`command. The Config section of the output contains a list of environment variables in the container.
+
+```bash
+$ docker container inspect color-app
+
+        "Config": {
+            "Hostname": "2049776d6c3d",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "8080/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "APP_COLOR=pink",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "GPG_KEY=0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D",
+                "PYTHON_VERSION=3.6.6",
+                "PYTHON_PIP_VERSION=18.1"
+            ],
+
+```
+
+
